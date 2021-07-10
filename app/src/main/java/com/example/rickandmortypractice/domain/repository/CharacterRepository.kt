@@ -8,10 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
 
-//    suspend fun getCharacters(page : Int) : Resource<APIResponse>
-//    suspend fun getSearchedCharacter(query : String, page : Int) : Resource<APIResponse>
-
-//    fun getCharacters() : Flow<PagingData<Character>>
     fun getSearchedCharacter(query : String? = null) : Flow<PagingData<Character>>
 
     fun getResultStream(query : String? = null): Flow<PagingData<Character>>

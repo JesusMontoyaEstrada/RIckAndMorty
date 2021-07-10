@@ -17,10 +17,6 @@ class CharacterRepositoryImpl (
     private val characterRemoteDataSource: CharacterRemoteDataSourceImpl
 
 ): CharacterRepository{
-//    override fun getCharacters(): Flow<PagingData<Character>> {
-//        return getResultStream()
-//    }
-
 
     override fun getSearchedCharacter(query: String?): Flow<PagingData<Character>> {
         return getResultStream(query)
