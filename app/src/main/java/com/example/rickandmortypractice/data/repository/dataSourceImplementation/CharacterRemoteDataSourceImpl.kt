@@ -20,9 +20,6 @@ class CharacterRemoteDataSourceImpl (
 
     var query : String? = null
 
-//    override suspend fun getCharacters(page: Int): Response<APIResponse> {
-//        return characterAPIService.getCharacters(page)
-//    }
 
     override suspend fun getSearchedCharacters(query: String?, page: Int): Response<APIResponse> {
         return characterAPIService.getSearchedCharacters(page, query)

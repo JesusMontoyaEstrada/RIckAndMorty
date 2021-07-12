@@ -1,31 +1,22 @@
 package com.example.rickandmortypractice
 
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickandmortypractice.data.api.RickAndMortyAPIService
-import com.example.rickandmortypractice.data.model.Character
 import com.example.rickandmortypractice.databinding.FragmentCharactersBinding
 import com.example.rickandmortypractice.presentation.MainActivity
 import com.example.rickandmortypractice.presentation.adapter.CharacterAdapter
 import com.example.rickandmortypractice.presentation.adapter.CharacterLoadStateAdapter
-import com.example.rickandmortypractice.presentation.viewmodel.CharacterViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.rickandmortypractice.presentation.viewmodel.CharacterViewModels
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -37,7 +28,7 @@ import kotlinx.coroutines.launch
 
 class CharactersFragment : Fragment() {
 
-    private lateinit var viewModel : CharacterViewModel
+    private lateinit var viewModel : CharacterViewModels
     private lateinit var characterAdapter: CharacterAdapter
     private lateinit var binding : FragmentCharactersBinding
     private var searchJob: Job? = null
@@ -53,7 +44,7 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCharactersBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
+        viewModel = (activity as MainActivity).characterViewModels
         characterAdapter = (activity as MainActivity).characterAdapter
         characterAdapter.setOnClickListener { character ->
             val bundle = Bundle().apply {
@@ -122,26 +113,6 @@ class CharactersFragment : Fragment() {
     }
 
     private fun initSearch(query: String? = null) {
-//        binding.svCharacter.setText(query)
-//
-//        binding.svCharacter.setOnEditorActionListener { _, actionId, _ ->
-//            if (actionId == EditorInfo.IME_ACTION_GO) {
-////                updateRepoListFromInput()
-//                search()
-//                true
-//            } else {
-//                false
-//            }
-//        }
-//
-//        binding.svCharacter.setOnKeyListener { _, keyCode, event ->
-//            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-//                updateRepoListFromInput()
-//                true
-//            } else {
-//                false
-//            }
-//        }
 
         binding.svCharacters.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -181,16 +152,6 @@ class CharactersFragment : Fragment() {
                 .collect { binding.rvCharacter.scrollToPosition(0) }
         }
     }
-
-//    private fun updateRepoListFromInput(query: String? = null) {
-////        binding.svCharacter.text.trim().let {
-////            if (it.isNotEmpty()) {
-////                search(it.toString())
-////            }
-////        }
-//
-//        search(query)
-//    }
 
     private fun search(query: String? = null) {
         // Make sure we cancel the previous job before creating a new one

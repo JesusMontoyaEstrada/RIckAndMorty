@@ -1,7 +1,6 @@
 package com.example.rickandmortypractice.presentation.di
 
 import com.example.rickandmortypractice.domain.repository.CharacterRepository
-import com.example.rickandmortypractice.domain.usecase.GetCharactersUseCase
 import com.example.rickandmortypractice.domain.usecase.GetSearchedCharacterUseCase
 import dagger.Module
 import dagger.Provides
@@ -13,12 +12,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class UseCaseModule {
-
-//    @Singleton
-//    @Provides
-//    fun providerGetCharactersUseCase(characterRepository: CharacterRepository) : GetCharactersUseCase {
-//        return GetCharactersUseCase(characterRepository)
-//    }
 
     @Singleton
     @Provides

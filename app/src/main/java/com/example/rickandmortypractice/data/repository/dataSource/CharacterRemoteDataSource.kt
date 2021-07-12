@@ -8,7 +8,6 @@ import retrofit2.Response
 
 interface CharacterRemoteDataSource {
 
-//    suspend fun getCharacters(page : Int) : Response<APIResponse>
     suspend fun getSearchedCharacters(query : String? = null, page : Int) : Response<APIResponse>
 
 
